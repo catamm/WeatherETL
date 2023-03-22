@@ -4,18 +4,23 @@ import pandas as pd
 import psycopg2
 from sqlalchemy import create_engine
 import json
+from datetime import date, timedelta
+
+# set today's date
+today = date.today()
 
 # Set up API variables
 api_key = "1cd0b5e76d8a40f296b101351231603"
 location = "New York"
-start_date = "2023-03-15"
-end_date = "2023-03-22"
+start_date = today - timedelta(days=7)
+end_date = today
 
 # Make API request to WeatherAPI
 #url = 'https://api.weatherapi.com/v1/history.json?key=1cd0b5e76d8a40f296b101351231603&q=new%20york&dt=2023-03-12'
 url_history = f'https://api.weatherapi.com/v1/history.json?key={api_key}&q={location}&dt={start_date}&end_dt={end_date}'
+print(url_history)
 response = requests.get(url_history, verify=False)
-url_forecast = f''
+#'url_forecast = f''
 
 # Extract data from response JSON
 data = response.json()
