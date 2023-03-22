@@ -16,7 +16,6 @@ start_date = today - timedelta(days=7)
 end_date = today
 
 # Make API request to WeatherAPI
-#url = 'https://api.weatherapi.com/v1/history.json?key=1cd0b5e76d8a40f296b101351231603&q=new%20york&dt=2023-03-12'
 url_history = f'https://api.weatherapi.com/v1/history.json?key={api_key}&q={location}&dt={start_date}&end_dt={end_date}'
 print(url_history)
 response = requests.get(url_history, verify=False)
@@ -26,8 +25,15 @@ response = requests.get(url_history, verify=False)
 data = response.json()
 
 # Upload response JSON to S3 bucket
+#AWS_ACCESS_KEY_ID = 'AKIAW4PHUVHLPFR5JIBJ'
+#AWS_SECRET_ACCESS_KEY = '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'
+########################################################################
+#DE STERSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS inainte de a publica pe net
 AWS_ACCESS_KEY_ID = 'AKIAW4PHUVHLPFR5JIBJ'
 AWS_SECRET_ACCESS_KEY = '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'
+########################################################################
+
+
 s3 = boto3.client("s3", aws_access_key_id = AWS_ACCESS_KEY_ID, aws_secret_access_key = AWS_SECRET_ACCESS_KEY)
 s3.put_object(Bucket="mystorsdata", Key="response.json", Body=str(data))
 
@@ -78,8 +84,3 @@ for i in range(len(data["forecast"]["forecastday"])):
 print('gata for-u')
 
 print('Data successfully loaded to PostgreSQL database!')
-
-
-# Load the data into the database
-#engine = create_engine('mysql+pymysql://USER:PASSWORD@HOST:PORT/DATABASE')
-#df.to_sql('weather_data', engine, if_exists='replace', index=False)
