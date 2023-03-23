@@ -3,4 +3,3 @@ pandas
 boto3==1.26.94
 psycopg2
 sqlalchemy==2.0.7
-json
